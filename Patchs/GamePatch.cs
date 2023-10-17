@@ -7,28 +7,17 @@ using UnityEngine;
 
 namespace UniversalPortalsMod
 {
-    [HarmonyPatch(typeof(Game), "Awake")]
-    public static class Game_Awake
-    {
-        public static void Postfix(Game __instance)
-        {
-            UniversalPortalsConfig.instance.LoadFromFile();
-        }
-    }
-
     [HarmonyPatch(typeof(Game), "Shutdown")]
     public static class Game_Shutdown
     {
         public static void Prefix()
         {
-            UniversalPortalsConfig.instance.SaveToFile();
-
             if (Minimap_Patch.saved)
             {
                 Minimap_Patch.ChangePins(Minimap_Patch.savedPins.Where(x => !Minimap_Patch.excludedPinTypes.Contains(x.m_type)).ToList());
             }
 
-            if (UniversalPortalsConfig.instance.ShowMarkersOnMapSelection)
+            if (UniversalPortalsConfig.instance.ShowMarkersOnMapSelection.Value)
             {
                 Minimap_Patch.ChangePins(Minimap_Patch.GetPins().Where(x => !Minimap_Patch.excludedPinTypes.Contains(x.m_type) && x.m_type != Minimap_Patch.portalPinType).ToList());
             }

@@ -36,7 +36,7 @@ namespace UniversalPortalsMod
 
             Minimap_Patch.portalsPins = portalsPins;
 
-            if (!UniversalPortalsConfig.instance.ShowMarkersOnMapSelection)
+            if (!UniversalPortalsConfig.instance.ShowMarkersOnMapSelection.Value)
             {
                 if (!Minimap_Patch.saved)
                 {
@@ -71,7 +71,7 @@ namespace UniversalPortalsMod
                 Minimap.instance.RemovePin(pin);
             }
 
-            if (!UniversalPortalsConfig.instance.ShowMarkersOnMapSelection)
+            if (!UniversalPortalsConfig.instance.ShowMarkersOnMapSelection.Value)
             {
                 if (Minimap_Patch.saved)
                 {

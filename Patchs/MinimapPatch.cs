@@ -115,7 +115,7 @@ namespace UniversalPortalsMod
                 {
                     var portal = Minimap_Patch.portalsPins.FirstOrDefault(x => x.Key == closestPin).Value;
 
-                    if (UniversalPortalsConfig.instance.SaveLastSelection)
+                    if (UniversalPortalsConfig.instance.SaveLastSelection.Value)
                     {
                         TeleportWorld_Patch.SetTarget(TeleportWorld_Patch.SourceTeleport, portal);
                     }

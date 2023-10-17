@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
 using System.Threading;
 
@@ -11,6 +12,9 @@ namespace UniversalPortalsMod
         {
             // Plugin startup logic
             Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+
+            UniversalPortalsConfig.instance.ShowMarkersOnMapSelection = Config.Bind("Universal Portals", "Show markers on map selection", false, new ConfigDescription("Shows the map markers when you are selecting a portal"));
+            UniversalPortalsConfig.instance.SaveLastSelection = Config.Bind("Universal Portals", "Save last selection", false, new ConfigDescription("Saves the last destination of the portal used"));
 
             new Thread(() =>
             {

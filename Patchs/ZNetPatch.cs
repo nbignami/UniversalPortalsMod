@@ -30,17 +30,9 @@ namespace UniversalPortalsMod
     {
         private static void Postfix(ZNetPeer peer, ZNet __instance)
         {
-            if (__instance.IsServer())
-            {
-                peer.m_rpc.Invoke("SetConfig", new object[]
-                {
-                    new ZPackage().FromObject(UniversalPortalsConfig.instance)
-                });
-            }
-            else
+            if (!__instance.IsServer())
             {
                 peer.m_rpc.Register("UpdatePortals", new Action<ZRpc, ZPackage>(TeleportWorld_Patch.UpdatePortalsClient));
-                peer.m_rpc.Register("SetConfig", new Action<ZRpc, ZPackage>(UniversalPortalsConfig.SetConfig));
             }
         }
     }
