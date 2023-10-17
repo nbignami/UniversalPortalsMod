@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -50,9 +51,9 @@ namespace UniversalPortalsMod
                 }
             }
 
-            if (Minimap_Patch.GetMapMode() != Minimap_Patch.MapMode.Large)
+            if (Minimap_Patch.GetMapMode() != Minimap.MapMode.Large)
             {
-                Minimap_Patch.SetMapMode(Minimap_Patch.MapMode.Large);
+                Minimap_Patch.SetMapMode(Minimap.MapMode.Large);
             }
 
             Player.m_localPlayer.Message(MessageHud.MessageType.Center, !IsSelectingPortal ? "Right click on any portal to teleport" : "Right click on any portal to select as default target", 0, null);
@@ -84,7 +85,7 @@ namespace UniversalPortalsMod
                 }
             }
 
-            Minimap_Patch.SetMapMode(Minimap_Patch.MapMode.Small);
+            Minimap_Patch.SetMapMode(Minimap.MapMode.Small);
         }
 
         public static List<ZDO> GetPortals()
@@ -93,9 +94,7 @@ namespace UniversalPortalsMod
 
             if (ZNet.instance.IsServer())
             {
-                var m_portalPrefab = AccessTools.FieldRefAccess<Game, GameObject>(Game.instance, "m_portalPrefab");
-
-                ZDOMan.instance.GetAllZDOsWithPrefab(m_portalPrefab.name, portals);
+                portals = ZDOMan.instance.GetPortals();
             }
             else
             {

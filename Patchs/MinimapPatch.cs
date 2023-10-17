@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using UnityEngine;
 
@@ -29,26 +30,24 @@ namespace UniversalPortalsMod
             }
         }
 
-        public static void SetMapMode(MapMode mode)
+        public static void SetMapMode(Minimap.MapMode mode)
         {
-            Minimap.instance.GetType().GetMethod("SetMapMode", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Minimap.instance, new object[]
-            {
-                (int)mode
-            });
+            Minimap.instance.SetMapMode(mode);
         }
 
-        public enum MapMode
+        public static Minimap.MapMode GetMapMode()
         {
-            None,
-            Small,
-            Large
+            return Minimap.instance.m_mode;
         }
 
-        public static MapMode GetMapMode()
+        public static bool[] GetVisibleIconTypes()
         {
-            FieldInfo fieldInfo = typeof(Minimap).GetFields(BindingFlags.Instance | BindingFlags.NonPublic).FirstOrDefault((FieldInfo x) => x.Name == "m_mode");
+            return AccessTools.FieldRefAccess<Minimap, bool[]>(Minimap.instance, "m_visibleIconTypes");
+        }
 
-            return (MapMode)fieldInfo.GetValue(Minimap.instance);
+        public static void GetVisibleIconTypes(bool[] value)
+        {
+            Traverse.Create(Minimap.instance).Field("m_visibleIconTypes").SetValue(value);
         }
 
         public static Minimap.PinType[] excludedPinTypes = new Minimap.PinType[] {
@@ -59,7 +58,7 @@ namespace UniversalPortalsMod
                         Minimap.PinType.RandomEvent,
                         Minimap.PinType.Shout
         };
-        public static Minimap.PinType portalPinType = (Minimap.PinType)100;
+        public static Minimap.PinType portalPinType = (Minimap.PinType)17;
         public static bool saved = false;
         public static List<Minimap.PinData> savedPins = new List<Minimap.PinData>();
         public static Dictionary<Minimap.PinData, ZDO> portalsPins = new Dictionary<Minimap.PinData, ZDO>();
@@ -74,6 +73,10 @@ namespace UniversalPortalsMod
             sprite.m_name = Minimap_Patch.portalPinType;
             sprite.m_icon = Minimap.instance.m_icons.Find((Minimap.SpriteData x) => x.m_name == Minimap.PinType.Icon3).m_icon;
             Minimap.instance.m_icons.Add(sprite);
+
+            var visibleIconTypes = Minimap_Patch.GetVisibleIconTypes();
+
+            Minimap_Patch.GetVisibleIconTypes(visibleIconTypes.ToList().AddItem(true).ToArray());
         }
     }
 

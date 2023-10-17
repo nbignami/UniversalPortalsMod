@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalPortalsMod", "UniversalPortalsMod.csproj", "{27EA0092-173D-4676-8CB7-FCB3B77C800D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27EA0092-173D-4676-8CB7-FCB3B77C800D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27EA0092-173D-4676-8CB7-FCB3B77C800D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27EA0092-173D-4676-8CB7-FCB3B77C800D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27EA0092-173D-4676-8CB7-FCB3B77C800D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10C664D4-4DDD-47A5-941A-C1AA9F144D98}
+	EndGlobalSection
+EndGlobal
